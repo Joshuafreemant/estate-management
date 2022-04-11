@@ -9,6 +9,7 @@ import Residents from './Component/Residents';
 import Visitors from './Component/Visitors';
 import Payments from './Component/Payments';
 import News from './Component/News';
+import Dash from './Component/LeftNavbar';
 
 import { useEffect } from "react";
 
@@ -32,6 +33,7 @@ export default function App() {
           <Route exact path="visitors" element={<Visitors />} />
           <Route exact path="payments" element={<Payments />} />
           <Route exact path="news" element={<News />} />
+          <Route exact path="dash" element={<Dash />} />
          
           
           

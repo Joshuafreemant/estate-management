@@ -6,12 +6,14 @@ import { TableProps } from "antd/lib/table";
 import { render } from "react-dom";
 
 import { Dialog, Transition } from '@headlessui/react'
-import { RiNotificationLine, RiDashboardLine, RiKeyLine, RiUserLine, RiSecurePaymentLine, RiCalendarLine, RiShape2Line } from 'react-icons/ri';
+import { RiNotificationLine, RiDashboardLine, RiKeyLine, RiUserLine,RiSearch2Line, RiSecurePaymentLine, RiCalendarLine, RiShape2Line } from 'react-icons/ri';
 
 // @ts-ignore
 import reqwest from "reqwest";
 
 import "antd/dist/antd.css";
+import TopNavbar from "./TopNavbar";
+import LeftNavbar from "./LeftNavbar";
 
 
 function Residents() {
@@ -225,109 +227,27 @@ function Residents() {
 
 
             <div className="flex">
-                <div
-                    className="w-2/12 h-screen bg-white items-center flex flex-col pt-6 shad"
-                >
-                    <div className="rounded-full w-12 h-12 bg-black mb-12"></div>
+            <LeftNavbar/>
 
-                    <div className="flex gap-5 flex-col">
-                        <div className="flex flex-col items-center text-2xl">
-                            <RiDashboardLine />
-                            <p className="text-sm font-semibold">Dashboard</p>
-                        </div>
-
-                        <div className="flex flex-col items-center text-2xl">
-
-                            <RiKeyLine />
-                            <p className="text-sm font-semibold">Residents</p>
-                        </div>
-
-                        <div className="flex flex-col items-center text-2xl">
-
-                            <RiUserLine />
-                            <p className="text-sm font-semibold">Visitors</p>
-                        </div>
-
-                        <div className="flex flex-col items-center text-2xl">
-
-                            <RiSecurePaymentLine />
-                            <p className="text-sm font-semibold">Payments</p>
-                        </div>
-
-                        <div className="flex flex-col items-center text-2xl">
-
-                            <RiCalendarLine />
-                            <p className="text-sm font-semibold">Estate News</p>
-                        </div>
-
-                        <div className="flex flex-col items-center text-2xl">
-
-                            <RiShape2Line />
-                            <p className="text-sm font-semibold">Staffs</p>
-                        </div>
-
-                        <div className="flex flex-col items-center ">
-
-                            <p className="text-xs ">Estate Management</p>
-                            <p className="text-xs ">&copy; All Rights Reserved</p>
-                        </div>
-                    </div>
-                </div>
 
                 <div className="w-10/12 flex flex-col  bg-gray-200">
-                    <div className="flex px-12 bg-white h-1/6 py-4 items-center justify-between">
-                        <div className="w-full  flex  items-center justify-between">
-                            <h1 className="text-black text-lg font-semibold">Residents</h1>
-                            <div className="w-5/12 bg-gray-100 h-00 rounded-3xl py-2 flex px-8">
-                                <input
-                                    type="text"
-                                    name=""
-                                    placeholder="search here..."
-                                    id=""
-                                    className="bg-transparent w-11/12"
-                                />
-
-                                <i className="ri-search-line"></i>
-                            </div>
-
-                            <div className="border-r-1 text-lg">
-                                <RiNotificationLine />
-                            </div>
-
-                            <div className="w-3/12 flex justify-between gap-4">
-                                <div className="bg-black w-12 h-12 rounded-full">
-                                    <img src="" alt="" />
-                                </div>
-                                <div className="flex flex-col -gap-4">
-                                    <h4>Giovanni</h4>
-                                    <p className="text-xs">Superadmin</p>
-                                </div>
-
-                                <div className="w-4/12">
-                                    <select name="" id="" className="border rounded-3xl p-2 w-11/12">
-                                        <option value="English">EN</option>
-                                    </select>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
+                  <TopNavbar/>
 
                     <div className="flex justify-between ml-12 w-11/12 items-center mt-8">
-                        <div
-                            className="bg-white p-2  w-3/12 rounded-2xl px-6 flex items-center"
-                        >
-                            <input
-                                type="text"
-                                name=""
-                                placeholder="search here..."
-                                id=""
-                                className="bg-transparent w-11/12"
-                            />
+                    <div
+                        className="flex items-center bg-white p-2 mt-8 w-3/12 rounded-2xl px-6 flex items-center"
+                    >
+                        <input
+                            type="text"
+                            name=""
+                            placeholder="search here..."
+                            id=""
+                            className="focus:outline-none bg-transparent w-11/12"
+                        />
 
-                            <i className="ri-search-line"></i>
-                        </div>
+<RiSearch2Line/>
+
+                    </div>
 
 
                         <div className="flex gap-4">
