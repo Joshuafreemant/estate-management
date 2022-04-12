@@ -1,29 +1,32 @@
 
 
-import { Fragment, useState, useEffect } from "react";
+import { Fragment,useState, useEffect } from "react";
 import { Table } from "antd";
 import { TableProps } from "antd/lib/table";
 import { render } from "react-dom";
 
 import { Dialog, Transition } from '@headlessui/react'
-import { RiNotificationLine, RiDashboardLine, RiKeyLine, RiUserLine, RiSecurePaymentLine, RiCalendarLine, RiShape2Line,RiSearch2Line } from 'react-icons/ri';
+import { RiNotificationLine,RiDashboardLine,RiKeyLine,RiUserLine,RiSecurePaymentLine,RiCalendarLine,RiShape2Line,RiSearch2Line } from 'react-icons/ri';
 
 // @ts-ignore
 import reqwest from "reqwest";
-
-import "antd/dist/antd.css";
 import LeftNavbar from './LeftNavbar';
 import TopNavbar from './TopNavbar';
+
+
+import "antd/dist/antd.css";
+
 
 function Visitors() {
 
     const [isLoading, setIsLoading] = useState(false);
     const [userList, setUserList] = useState([]);
-    const [img, setImg] = useState([]);
     const [pagination, setPagination] = useState({});
 
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-
+    const [color, setColor] = useState();
+    let [isOpen, setIsOpen] = useState(false)
+    
 
 
     const customFetch = async (params = {}) => {
@@ -38,8 +41,6 @@ function Visitors() {
             type: "json"
         });
         console.log("response.results", response.results);
-        console.log("response.results phone", response.results.phone);
-
         setUserList(response.results);
         setIsLoading(false);
     };
@@ -48,66 +49,37 @@ function Visitors() {
         customFetch({});
     }, []);
 
-    let [isOpen, setIsOpen] = useState(true)
 
-    function closeModal() {
-        setIsOpen(false)
-    }
+  function closeModal() {
+    setIsOpen(false)
+  }
 
-    function openModal(e) {
-        e.preventDefault()
-        setIsOpen(true)
-    }
+  function openModal(e) {
+    e.preventDefault()
+    setIsOpen(true)
+  }
 
     const columns = [
 
-       
-
         {
-            title: "Visitor's Name",
-
+            title: "Email",
+            dataIndex: "email"
+        },
+        {
+            title: "Name",
             dataIndex: "name",
-
-            render: (name) =>
-                <div>
-                    <label htmlFor="" className="text-xx text-teal-300 font-semibold">#GS-2234</label>
-                    <p className="font-bold">{name.first} {name.last}</p>
-                </div>,
-            width: "25%"
-        },
-        {
-            title: "Phone Number",
-            dataIndex: "phone",
-            sorter: (a, b) => (a.phone > b.phone ? 1 : -1)
-        },
-        {
-            title: "Date Added",
-            dataIndex: "dob",
-
-            render: (dob) =>
-            <div>
-                <label htmlFor="" className="text-xx text-black font-semibold">{dob.date}</label>
-                <p className="font-light text-xx text-black">
-                {/* {dob.dob} {dob.age} */}
-                08:29AM
-                
-                </p>
-            </div>,
-            sorter: (a, b) => (a.gender.male > <b className="gender female"></b> ? 1 : -1),
-
-            // filters: [
-            //     { text: "Male", value: "male" },
-            //     { text: "Female", value: "female" }
-            // ],
+            sorter: (a, b) => (a.name.first > b.name.first ? 1 : -1),
+            render: (name) => `${name.first} ${name.last}`,
             width: "20%"
         },
+        
         {
-            title: "Resident Name",
+            title: "Gender",
             dataIndex: "gender",
-            // filters: [
-            //     { text: "Male", value: "male" },
-            //     { text: "Female", value: "female" }
-            // ],
+            filters: [
+                { text: "Male", value: "male" },
+                { text: "Female", value: "female" }
+            ],
             width: "20%"
         },
         {
@@ -119,13 +91,13 @@ function Visitors() {
             dataIndex: '',
             key: 'x',
             render: () => <button
-                type="button"
-                onClick={e => openModal(e)}
-                className="px-4 py-2 text-xl font-medium text-black font-bold"
-            >
-                ...
-            </button>,
-        },
+          type="submit"  
+onClick={e => openModal(e)}
+          className="px-4 py-2 text-xl font-medium text-black font-extrabold"
+        >
+          ...
+        </button>,
+          },
     ];
 
     const handleTableChange = (
@@ -145,8 +117,8 @@ function Visitors() {
 
     const onSelectChange = (selectedRowKeys) => {
         console.log('selectedRowKeys changed: ', selectedRowKeys);
-        // setSelectedRowKeys({ selectedRowKeys });
-    }
+        setColor('red');
+      }
 
     const rowSelection = {
         selectedRowKeys,
@@ -160,128 +132,129 @@ function Visitors() {
     return (
         <div>
 
-        <Transition appear show={isOpen} as={Fragment}>
-                <Dialog
-                  as="div"
-                  className="fixed inset-0 z-10 overflow-y-auto"
-                  onClose={closeModal}
+<Transition appear show={isOpen} as={Fragment}>
+        <Dialog
+          as="div"
+          className="fixed inset-0 z-10 overflow-y-auto"
+          onClose={closeModal}
+        >
+          <div className="min-h-screen px-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Dialog.Overlay className="fixed inset-0" />
+            </Transition.Child>
+
+            {/* This element is to trick the browser into centering the modal contents. */}
+            <span
+              className="inline-block h-screen align-middle"
+              aria-hidden="true"
+            >
+              &#8203;
+            </span>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                <Dialog.Title
+                  as="h3"
+                  className="text-lg font-medium leading-6 text-gray-900"
                 >
-                  <div className="min-h-screen px-4 text-center">
-                    <Transition.Child
-                      as={Fragment}
-                      enter="ease-out duration-300"
-                      enterFrom="opacity-0"
-                      enterTo="opacity-100"
-                      leave="ease-in duration-200"
-                      leaveFrom="opacity-100"
-                      leaveTo="opacity-0"
-                    >
-                      <Dialog.Overlay className="fixed inset-0" />
-                    </Transition.Child>
-        
-                    {/* This element is to trick the browser into centering the modal contents. */}
-                    <span
-                      className="inline-block h-screen align-middle"
-                      aria-hidden="true"
-                    >
-                      &#8203;
-                    </span>
-                    <Transition.Child
-                      as={Fragment}
-                      enter="ease-out duration-300"
-                      enterFrom="opacity-0 scale-95"
-                      enterTo="opacity-100 scale-100"
-                      leave="ease-in duration-200"
-                      leaveFrom="opacity-100 scale-100"
-                      leaveTo="opacity-0 scale-95"
-                    >
-                      <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                        <Dialog.Title
-                          as="h3"
-                          className="text-lg font-medium leading-6 text-gray-900"
+                  Payment successful
+                </Dialog.Title>
+                <div className="mt-2">
+                  <p className="text-sm text-gray-500">
+                    Your payment has been successfully submitted. We’ve sent you
+                    an email with all of the details of your order.
+                  </p>
+                </div>
+
+                <div className="mt-4">
+                  <button
+                    type="button"
+                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                    onClick={closeModal}
+                  >
+                    Got it, thanks!
+                  </button>
+                </div>
+              </div>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition>
+
+
+      
+      <div className="flex">
+           <LeftNavbar/>
+
+                <div className="w-10/12 flex flex-col  bg-gray-200">
+                 <TopNavbar user ='Visitors'/>
+
+
+                    <div className="flex justify-between ml-12 w-11/12 items-center mt-8">
+                        <div
+                            className="bg-white p-2  w-3/12 rounded-2xl px-6 flex items-center"
                         >
-                          Payment successful
-                        </Dialog.Title>
-                        <div className="mt-2">
-                          <p className="text-sm text-gray-500">
-                            Your payment has been successfully submitted. We’ve sent you
-                            an email with all of the details of your order.
-                          </p>
-                        </div>
-        
-                        <div className="mt-4">
-                          <button
-                            type="button"
-                            className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                            onClick={closeModal}
-                          >
-                            Got it, thanks!
-                          </button>
-                        </div>
-                      </div>
-                    </Transition.Child>
-                  </div>
-                </Dialog>
-              </Transition>
-        
-        
-              
-              <div className="flex">
-                   <LeftNavbar/>
-        
-                        <div className="w-10/12 flex flex-col  bg-gray-200">
-                         <TopNavbar/>
-        
-        
-                            <div className="flex justify-between ml-12 w-11/12 items-center mt-8">
-                                <div
-                                    className="bg-white p-2  w-3/12 rounded-2xl px-6 flex items-center"
-                                >
-                                    <input
-                                        type="text"
-                                        name=""
-                                        placeholder="search here..."
-                                        id=""
-                                        className="focus:outline-none bg-transparent w-11/12"
-                        />
+                            <input
+                                type="text"
+                                name=""
+                                placeholder="search here..."
+                                id=""
+                                className="focus:outline-none bg-transparent w-11/12"
+                            />
 
 <RiSearch2Line/>
-                                </div>
-        
-        
-                                <div className="flex gap-4">
-                                    <button className="flex items-center gap-2 bg-gray-300 py-2 px-3 text-teal-600 font-semibold text-xs  rounded-sm">  
-                                    <RiCalendarLine />
-                                    Date Filter</button>
-        
-        
-                                    <button className="flex items-center gap-2 bg-gray-300 py-2 px-3 text-teal-600 font-semibold text-xs  rounded-sm">  
-                                    <RiCalendarLine />
-                                    Generate Report</button>
-                                   
-                                  
-                                </div>
-                            </div>
-        
-        
-                            
-        
-                            <div className="w-11/12 ml-12 mt-8">
-                                <Table
-                                    rowSelection={rowSelection}
-                                    columns={columns}
-                                    dataSource={userList}
-                                    loading={isLoading}
-                                    onChange={handleTableChange}
-                                    pagination={pagination}
-                                    rowKey="email"
-                                />
-        
-        
-                            </div>
+
+                        </div>
+
+
+                        <div className="flex gap-4">
+                            <button className="flex items-center gap-2 bg-customm py-2 px-3 color-theme font-semibold text-xs  rounded-sm">  
+                            <RiCalendarLine />
+                            Date Filter</button>
+
+
+                            <button className="flex items-center gap-2 bg-gray-300 py-2 px-3 color-theme font-semibold text-xs  rounded-sm">  
+                            <RiCalendarLine />
+                            Generate Report</button>
+                           
+                          
                         </div>
                     </div>
+
+
+                    
+
+                    <div className="w-11/12 ml-12 mt-8">
+                        <Table
+                            rowSelection={rowSelection}
+                            columns={columns}
+                            dataSource={userList}
+                            loading={isLoading}
+                            onChange={handleTableChange}
+                            pagination={pagination}
+                            rowKey="email"
+                        />
+
+
+                    </div>
                 </div>
+            </div>
+        </div>
     )
 }
 

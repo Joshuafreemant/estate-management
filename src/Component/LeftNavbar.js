@@ -15,7 +15,15 @@ import Dashboard from './Dashboard';
 
 import "antd/dist/antd.css";
 
+
 import { NavLink } from "react-router-dom";
+import dashboard from '../Images/dashboard.png';
+import usericon from '../Images/usericon.png';
+import key from '../Images/key.png';
+import user from '../Images/user.png';
+import payment from '../Images/payment.png';
+import calendar from '../Images/calendar.png';
+import puzzle from '../Images/puzzle.png';
 
 
 function Dash() {
@@ -31,54 +39,63 @@ function Dash() {
             <div
                 className="w-2/12 h-screen bg-white items-center flex flex-col pt-6 shad"
             >
-                <div className="rounded-full w-12 h-12 bg-black mb-12"></div>
+                <div className="rounded-full w-12 h-12 bg-black mb-12">
+                    <img src={usericon} alt="" />
+                </div>
 
                 <div className="flex gap-7 flex-col">
-                    <div className="flex flex-col items-center text-2xl">
-                        <RiDashboardLine />
+                    <div className="flex flex-col items-center gap-2 text-2xl">
+                        {/* <RiDashboardLine /> */}
+
+                        <img src={dashboard} alt="" className="w-6 h-6" />
 
                         <NavLink className="text-xs font-medium text-gray-700" exact to="/">Dashboard</NavLink>
 
                     </div>
 
-                    <div className="flex flex-col items-center text-2xl">
+                    <div className="flex flex-col items-center gap-2 text-2xl">
 
-                        <RiKeyLine />
+                        <img src={key} alt="" className="w-6 h-6" />
+
 
                         <NavLink className="text-xs font-medium text-gray-700" exact to="/residents">Residents</NavLink>
-                       
+
 
 
                     </div>
 
-                    <div className="flex flex-col items-center text-2xl">
+                    <div className="flex flex-col items-center gap-2 text-2xl">
 
-                        <RiUserLine />
+                        <img src={user} alt="" className="w-6 h-6" />
+
                         <NavLink className="text-xs font-medium text-gray-700" exact to="/visitors">Visitors</NavLink>
 
 
                     </div>
 
-                    <div className="flex flex-col items-center text-2xl">
+                    <div className="flex flex-col items-center gap-2 text-2xl">
 
-                        <RiSecurePaymentLine />
+                        <img src={payment} alt="" className="w-6 h-6" />
+
 
                         <NavLink className="text-xs font-medium text-gray-700" exact to="/payments">Payments</NavLink>
 
                     </div>
 
-                    <div className="flex flex-col items-center text-2xl">
+                    <div className="flex flex-col items-center gap-2 text-2xl">
 
-                        <RiCalendarLine />
+                        <img src={calendar} alt="" className="w-6 h-6" />
+
 
 
                         <NavLink className="text-xs font-medium text-gray-700" exact to="/news">Estate News</NavLink>
 
                     </div>
 
-                    <div className="flex flex-col items-center text-2xl">
+                    <div className="flex flex-col items-center gap-2  text-2xl">
 
-                        <RiShape2Line />
+                        <img src={puzzle} alt="" className="w-6 h-6" />
+
 
                         <NavLink className="text-xs font-medium text-gray-700" exact to="/">Staffs </NavLink>
 

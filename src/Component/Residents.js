@@ -49,7 +49,7 @@ function Residents() {
         customFetch({});
     }, []);
 
-    let [isOpen, setIsOpen] = useState(true)
+    let [isOpen, setIsOpen] = useState(false)
 
     function closeModal() {
         setIsOpen(false)
@@ -231,7 +231,7 @@ function Residents() {
 
 
                 <div className="w-10/12 flex flex-col  bg-gray-200">
-                  <TopNavbar/>
+                <TopNavbar user ='Residents'/>
 
                     <div className="flex justify-between ml-12 w-11/12 items-center mt-8">
                     <div
@@ -251,13 +251,13 @@ function Residents() {
 
 
                         <div className="flex gap-4">
-                            <button className="flex items-center gap-2 bg-gray-300 py-2 px-3 text-teal-600 font-semibold text-xs  rounded-sm">  
+                            <button className="flex items-center gap-2 bg-customm py-2 px-3 color-theme font-semibold text-xs  rounded-sm">  
                             <RiCalendarLine />
                             Date Filter</button>
-                            <button className="flex items-center gap-2 bg-gray-300 py-2 px-3 text-teal-600 font-semibold text-xs  rounded-sm">
+                            <button className="flex items-center gap-2 bg-customm py-2 px-3 color-theme font-semibold text-xs  rounded-sm">
                             <RiCalendarLine />
                              Generate Report</button>
-                            <button className="bg-teal-600 py-2 px-3 text-white font-semibold  text-xs  rounded-sm"> Add New Resident</button>
+                            <button className="button-bg py-2 px-3 text-white font-semibold  text-xs  rounded-sm"> Add New Resident</button>
                         </div>
                     </div>
 

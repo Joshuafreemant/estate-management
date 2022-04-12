@@ -2,14 +2,21 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { Disclosure } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/solid'
-import ReactLogo from './Images/one.png';
+
 
 import Home from './Component/Dashboard';
 import Residents from './Component/Residents';
 import Visitors from './Component/Visitors';
 import Payments from './Component/Payments';
 import News from './Component/News';
-import Dash from './Component/LeftNavbar';
+import PasswordReset from './Component/PasswordReset';
+import ForgotPassword from './Component/ForgotPassword';
+import Login from './Component/Login';
+import EmailSent from './Component/EmailSent';
+import Reset from './Component/Reset';
+
+
+
 
 import { useEffect } from "react";
 
@@ -33,7 +40,12 @@ export default function App() {
           <Route exact path="visitors" element={<Visitors />} />
           <Route exact path="payments" element={<Payments />} />
           <Route exact path="news" element={<News />} />
-          <Route exact path="dash" element={<Dash />} />
+   
+          <Route exact path="password-reset" element={<PasswordReset />} />
+          <Route exact path="forgot-password" element={<ForgotPassword />} />
+          <Route exact path="login" element={<Login />} />
+          <Route exact path="email-sent" element={<EmailSent />} />
+          <Route exact path="reset" element={<Reset />} />
          
           
           

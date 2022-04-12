@@ -15,11 +15,13 @@ import Dashboard from './Dashboard';
 
 import "antd/dist/antd.css";
 
+import usericon from '../Images/usericon.png';
+import notif from '../Images/notif.png';
 
 function TopNavbar(props) {
-const {heading} = props
+    const { user } = props
 
-console.log('heading',props.heading)
+
 
 
 
@@ -29,7 +31,7 @@ console.log('heading',props.heading)
 
             <div className="flex px-12 bg-white h-1/6 py-4 items-center justify-between">
                 <div className="w-full  flex  items-center justify-between">
-                    <h1 className="text-black text-lg font-semibold">{heading}</h1>
+                    <h1 className="text-black text-lg font-semibold">{user}</h1>
                     <div className="w-5/12 bg-gray-100 h-00 rounded-3xl py-2 flex items-center px-8">
                         <input
                             type="text"
@@ -44,12 +46,14 @@ console.log('heading',props.heading)
                     </div>
 
                     <div className="border-r-1 text-lg">
-                        <RiNotificationLine />
+                       
+                        <img src={notif} alt="" className="w-10 h-10" />
+
                     </div>
 
                     <div className="w-3/12 flex justify-between gap-4">
                         <div className="bg-black w-12 h-12 rounded-full">
-                            <img src="" alt="" />
+                            <img src={usericon} alt="" />
                         </div>
                         <div className="flex flex-col">
                             <h4>Giovanni</h4>
@@ -57,7 +61,7 @@ console.log('heading',props.heading)
                         </div>
 
                         <div className="w-4/12">
-                            <select name="" id="" className="border rounded-3xl p-2 w-11/12">
+                            <select name="" id="" className="border rounded-3xl px-4 py-2 w-11/12">
                                 <option value="English">EN</option>
                             </select>
                         </div>
