@@ -139,11 +139,11 @@ function Apartment() {
             dataIndex: "nat",
             render: (dataIndex) =>
                 dataIndex === 'FR' ? <div className=" border border-green-600 rounded-3xl flex items-center justify-center">
-                    <p className="font-semibold text-xs mt-2">Active</p>
+                    <p className="font-semibold text-xs">Active</p>
 
                 </div> :
                     <div className=" border h-8 border-red-400 rounded-3xl flex items-center justify-center">
-                        <p className="font-semibold text-xs mt-2">Inactive</p>
+                        <p className="font-semibold text-xs">Inactive</p>
 
                     </div>,
             width: "10%"
