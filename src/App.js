@@ -14,6 +14,9 @@ import ForgotPassword from './Component/ForgotPassword';
 import Login from './Component/Login';
 import EmailSent from './Component/EmailSent';
 import Reset from './Component/Reset';
+import Apartment from './Component/Apartment';
+
+
 
 
 
@@ -46,6 +49,7 @@ export default function App() {
           <Route exact path="login" element={<Login />} />
           <Route exact path="email-sent" element={<EmailSent />} />
           <Route exact path="reset" element={<Reset />} />
+          <Route exact path="apartment" element={<Apartment />} />
          
           
           

@@ -201,7 +201,7 @@ onClick={e => openModal(e)}
       <div className="flex">
            <LeftNavbar/>
 
-                <div className="w-10/12 flex flex-col  bg-gray-200">
+                <div className="w-10/12 flex flex-col body-bg">
                  <TopNavbar user ='Visitors'/>
 
 
@@ -228,7 +228,7 @@ onClick={e => openModal(e)}
                             Date Filter</button>
 
 
-                            <button className="flex items-center gap-2 bg-gray-300 py-2 px-3 color-theme font-semibold text-xs  rounded-sm">  
+                            <button className="flex items-center gap-2 bg-customm py-2 px-3 color-theme font-semibold text-xs  rounded-sm">  
                             <RiCalendarLine />
                             Generate Report</button>
                            

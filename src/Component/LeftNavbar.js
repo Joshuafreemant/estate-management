@@ -24,6 +24,7 @@ import user from '../Images/user.png';
 import payment from '../Images/payment.png';
 import calendar from '../Images/calendar.png';
 import puzzle from '../Images/puzzle.png';
+import apartment from '../Images/apartment.png';
 
 
 function Dash() {
@@ -72,6 +73,17 @@ function Dash() {
 
 
                     </div>
+
+                    <div className="flex flex-col items-center gap-2 text-2xl">
+
+<img src={apartment} alt="" className="w-6 h-6" />
+
+<NavLink className="text-xs font-medium text-gray-700" exact to="/apartment">Apartment</NavLink>
+
+
+</div>
+
+
 
                     <div className="flex flex-col items-center gap-2 text-2xl">
 

@@ -6,7 +6,7 @@ import { TableProps } from "antd/lib/table";
 import { render } from "react-dom";
 
 import { Dialog, Transition } from '@headlessui/react'
-import { RiNotificationLine, RiDashboardLine, RiKeyLine, RiUserLine,RiSearch2Line, RiSecurePaymentLine, RiCalendarLine, RiShape2Line } from 'react-icons/ri';
+import { RiNotificationLine, RiDashboardLine, RiKeyLine, RiUserLine, RiSearch2Line, RiSecurePaymentLine, RiCalendarLine, RiShape2Line } from 'react-icons/ri';
 
 // @ts-ignore
 import reqwest from "reqwest";
@@ -15,9 +15,20 @@ import "antd/dist/antd.css";
 
 import LeftNavbar from './LeftNavbar';
 import TopNavbar from './TopNavbar';
+import photo from '../Images/photo.png';
+
+
+import { ContentState, convertToRaw } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 
 function News() {
+
+    //The editor  library
+    let _contentState = ContentState.createFromText('Sample content state');
+    const raw = convertToRaw(_contentState)
+    const [contentState, setContentState] = useState(raw)
 
     const [isLoading, setIsLoading] = useState(false);
     const [userList, setUserList] = useState([]);
@@ -81,7 +92,7 @@ function News() {
 
             render: (name) =>
                 <div>
-                    <label htmlFor="" className="font-bold">{name.first} {name.last}</label>
+                    <label htmlFor="" className="font-semibold">{name.first} {name.last}</label>
                     <p className="text-xx text-gray-600 font-light">Updated 1 day ago</p>
                 </div>,
             width: "25%"
@@ -90,22 +101,22 @@ function News() {
             title: "Category",
 
             render: () =>
-            <div>
-                <p className="font-bold text-sm">Maintenance</p>
-              
-            </div>,
-           
+                <div>
+                    <p className="font-semibold text-sm">Maintenance</p>
+
+                </div>,
+
             sorter: (a, b) => (a.email.first > b.email.first ? 1 : -1)
         },
         {
             title: "Date Created",
             dataIndex: "gender",
-            
+
             render: () =>
-            <div>
-                <p className="font-semibold text-xs">Oct 24th, 2020</p>
-              
-            </div>,
+                <div>
+                    <p className="font-semibold text-xs">Oct 24th, 2020</p>
+
+                </div>,
             sorter: (a, b) => (a.gender.male > <b className="gender female"></b> ? 1 : -1),
 
             width: "20%"
@@ -129,7 +140,7 @@ function News() {
             key: 'x',
             render: () => <button
                 type="button"
-                onClick={e => openModal(e)}
+
                 className="px-4 py-2 text-xl font-medium text-black font-bold"
             >
                 ...
@@ -204,27 +215,88 @@ function News() {
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                            <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-3xl border border-gray-100">
                                 <Dialog.Title
                                     as="h3"
-                                    className="text-lg font-medium leading-6 text-gray-900"
+                                    className="text-base font-medium leading-6 text-gray-900"
                                 >
-                                    Payment successful
+                                   Add News
+
                                 </Dialog.Title>
-                                <div className="mt-2">
-                                    <p className="text-sm text-gray-500">
-                                        Your payment has been successfully submitted. We’ve sent you
-                                        an email with all of the details of your order.
-                                    </p>
+
+                                <div className="w-12 h-12 bg-gray-300">
+                                    <img src={photo} alt="" />
+                                </div>
+                                <div className="mt-4">
+                                    <form action="">
+                                        <div className="flex flex-col gap-1">
+                                            <label htmlFor="">News Title</label>
+                                            <input type="text" name="" id="" className="border border-gray-200 p-2 focus:outline-none rounded-sm" placeholder="Enter news Title" />
+
+                                        </div>
+
+
+                                        <div className="flex gap-2 mt-4 ">
+
+
+
+                                            <div className="flex flex-col w-1/2">
+                                                <label htmlFor="" className="text-xs mb-1">Category</label>
+                                                <select name="" className="border border-gray-200 p-2 focus:outline-none rounded-sm" id="">
+                                                    <option value="">Choose</option>
+                                                    <option value="">Male</option>
+                                                    <option value="">Female</option>
+                                                </select>
+
+                                            </div>
+
+
+                                            <div className="flex flex-col w-1/2">
+                                                <label htmlFor="" className="text-xs mb-1">Priority</label>
+                                                <select name="" className="border border-gray-200 p-2 focus:outline-none rounded-sm" id="">
+                                                    <option value="">Choose</option>
+                                                    <option value="">Male</option>
+                                                    <option value="">Female</option>
+                                                </select>
+
+                                            </div>
+
+
+
+
+
+
+                                        </div>
+
+
+                                        <div className="mt-4">
+                                        <label htmlFor="" className="text-xs mb-1">News Details</label>
+
+                                            <Editor
+                                                defaultContentState={contentState}
+                                                onContentStateChange={setContentState}
+                                                wrapperClassName="wrapper-class"
+                                                editorClassName="editor-class"
+                                                toolbarClassName="toolbar-class"
+
+                                            />
+                                        </div>
+
+
+
+                                    </form>
                                 </div>
 
-                                <div className="mt-4">
+                                <div className="mt-4 flex gap-2">
+
+                                    <button className="button-bg py-2 px-3 text-white font-semibold  text-xs  rounded-sm"> Add Levy</button>
+
                                     <button
                                         type="button"
-                                        className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                                        className=" bg-customm p-color py-2  px-3 text-sm font-medium    rounded-sm  focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                                         onClick={closeModal}
                                     >
-                                        Got it, thanks!
+                                        Cancel
                                     </button>
                                 </div>
                             </div>
@@ -235,14 +307,15 @@ function News() {
 
 
 
+
             <div className="flex">
-           <LeftNavbar/>
+                <LeftNavbar />
 
-               
 
-                <div className="w-10/12 flex flex-col  bg-gray-200">
 
-                <TopNavbar user ='Estate News'/>
+                <div className="w-10/12 flex flex-col  body-bg">
+
+                    <TopNavbar user='Estate News' />
 
 
 
@@ -259,28 +332,28 @@ function News() {
                                 className="focus:outline-none bg-transparent w-11/12"
                             />
 
-<RiSearch2Line/>
+                            <RiSearch2Line />
 
                         </div>
 
 
                         <div className="flex gap-4">
-                          
-
-                        <button className="flex items-center gap-2 bg-customm py-2 px-3 color-theme font-semibold text-xs  rounded-sm">  
-                            <RiCalendarLine />
-                            Date Filter</button>
-                           
-                            <button className="button-bg py-2 px-3 text-white font-semibold  text-xs  rounded-sm"> Create News</button>
 
 
+                            <button className="flex items-center gap-2 bg-customm py-2 px-3 color-theme font-semibold text-xs  rounded-sm">
+                                <RiCalendarLine />
+                                Date Filter</button>
 
-                           
+                            <button onClick={e => openModal(e)} className="button-bg py-2 px-3 text-white font-semibold  text-xs  rounded-sm"> Create News</button>
 
 
-                         
-                           
-                          
+
+
+
+
+
+
+
                         </div>
                     </div>
 

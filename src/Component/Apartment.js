@@ -6,18 +6,30 @@ import { TableProps } from "antd/lib/table";
 import { render } from "react-dom";
 
 import { Dialog, Transition } from '@headlessui/react'
-import { RiNotificationLine, RiDashboardLine, RiKeyLine, RiUserLine,RiSearch2Line, RiSecurePaymentLine, RiCalendarLine, RiShape2Line } from 'react-icons/ri';
+import { RiNotificationLine, RiDashboardLine, RiKeyLine, RiUserLine, RiSearch2Line, RiSecurePaymentLine, RiCalendarLine, RiShape2Line } from 'react-icons/ri';
 
 // @ts-ignore
 import reqwest from "reqwest";
 
 import "antd/dist/antd.css";
-import TopNavbar from "./TopNavbar";
-import LeftNavbar from "./LeftNavbar";
-import add from '../Images/add.png';
 
+import LeftNavbar from './LeftNavbar';
+import TopNavbar from './TopNavbar';
+import photo from '../Images/photo.png';
 
-function Residents() {
+import { ContentState, convertToRaw } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
+function Apartment() {
+
+   
+//The editor  library
+    let _contentState = ContentState.createFromText('Sample content state');
+    const raw = convertToRaw(_contentState)
+    const [contentState, setContentState] = useState(raw)
+
+    
 
     const [isLoading, setIsLoading] = useState(false);
     const [userList, setUserList] = useState([]);
@@ -64,12 +76,12 @@ function Residents() {
     const columns = [
 
         {
-            title: "Resident",
+            title: "Name",
             dataIndex: "picture",
 
             sorter: (a, b) => (a.picture.thumbnail > b.picture.thumbnail ? 1 : -1),
             render: (picture) => <div>
-                <img className="rounded-full -mr-16" src={picture.thumbnail} />
+                <img className="-mr-16 rounded-md" src={picture.thumbnail} />
             </div>,
             width: "1%"
 
@@ -81,39 +93,61 @@ function Residents() {
 
             render: (name) =>
                 <div>
-                    <label htmlFor="" className="text-xx color-theme font-semibold">#GS-2234</label>
-                    <p className="font-semibold">{name.first} {name.last}</p>
+                    <label htmlFor="" className="font-semibold">{name.first} {name.last}</label>
+                    <p className="text-xx text-gray-600 font-light">Updated 1 day ago</p>
                 </div>,
             width: "25%"
         },
         {
-            title: "Email Address",
-            dataIndex: "email",
+            title: "Service",
+
+            render: () =>
+                <div>
+                    <p className="font-semibold text-sm">#40,000</p>
+
+                </div>,
+
             sorter: (a, b) => (a.email.first > b.email.first ? 1 : -1)
         },
         {
-            title: "Date Added",
-            dataIndex: "gender",
+            title: "Date Created",
+            dataIndex: "",
+
+            render: () =>
+                <div>
+                    <p className="font-semibold text-xs">Oct 24th, 2020</p>
+                    <p className="font-semibold text-xx">08:29 AM</p>
+
+                </div>,
             sorter: (a, b) => (a.gender.male > <b className="gender female"></b> ? 1 : -1),
 
-            // filters: [
-            //     { text: "Male", value: "male" },
-            //     { text: "Female", value: "female" }
-            // ],
             width: "20%"
         },
         {
-            title: "Apartment Type",
-            dataIndex: "gender",
-            // filters: [
-            //     { text: "Male", value: "male" },
-            //     { text: "Female", value: "female" }
-            // ],
+            title: "Residents",
+            dataIndex: "dob",
+            render: () =>
+                <div>
+                    <p className="font-semibold text-xs">37</p>
+
+
+                </div>,
             width: "20%"
         },
         {
             title: "Status",
-            dataIndex: "nat"
+            dataIndex: "nat",
+            render: (dataIndex) =>
+                dataIndex === 'FR' ? <div className=" border border-green-600 rounded-3xl flex items-center justify-center">
+                    <p className="font-semibold text-xs mt-2">Active</p>
+
+                </div> :
+                    <div className=" border h-8 border-red-400 rounded-3xl flex items-center justify-center">
+                        <p className="font-semibold text-xs mt-2">Inactive</p>
+
+                    </div>,
+            width: "10%"
+
         },
         {
             title: '',
@@ -161,7 +195,7 @@ function Residents() {
     return (
         <div>
 
-<Transition appear show={isOpen} as={Fragment}>
+            <Transition appear show={isOpen} as={Fragment}>
                 <Dialog
                     as="div"
                     className="fixed inset-0 z-10 overflow-y-auto"
@@ -201,100 +235,62 @@ function Residents() {
                                     as="h3"
                                     className="text-base font-medium leading-6 text-gray-900"
                                 >
-                                    Add Resident
+                                    New Apartment
 
                                 </Dialog.Title>
 
-                                <div className="w-12 h-12 rounded-full bg-gray-300">
-                                    <img src={add} alt="" />
+                                <div className="w-12 h-12 bg-gray-300">
+                                    <img src={photo} alt="" />
                                 </div>
                                 <div className="mt-4">
                                     <form action="">
-                                    <div className="flex gap-2 mt-4">
-                                            <div className="flex flex-col w-1/2">
-                                                <label htmlFor="" className="text-xs mb-1">Firstname</label>
-                                                <input type="text" name="" id="" className="border border-gray-200 p-2 focus:outline-none rounded-sm" placeholder="Enter Levy name" />
-                                            </div>
-
-
-                                            <div className="flex flex-col w-1/2">
-                                                <label htmlFor="" className="text-xs mb-1">Lastname</label>
-                                                <input type="text" name="" id="" className="border border-gray-200 p-2 focus:outline-none rounded-sm" placeholder="Enter Levy name" />
-                                            </div>
-
-
+                                        <div className="flex flex-col gap-1">
+                                            <label htmlFor="">Name</label>
+                                            <input type="text" name="" id="" className="border border-gray-200 p-2 focus:outline-none rounded-sm" placeholder="Enter Apartment name" />
 
                                         </div>
 
 
-                                        <div className="flex gap-2 mt-4">
-                                            <div className="flex flex-col w-1/2">
-                                                <label htmlFor="" className="text-xs mb-1">Email</label>
-                                                <input type="email" name="" id="" className="border border-gray-200 p-2 focus:outline-none rounded-sm" placeholder="Enter Levy name" />
-                                            </div>
+                                        <div className="flex gap-2 mt-4 ">
+
 
 
                                             <div className="flex flex-col w-1/2">
-                                                <label htmlFor="" className="text-xs mb-1">Phone Number</label>
-                                                <input type="phone" name="" id="" className="border border-gray-200 p-2 focus:outline-none rounded-sm" placeholder="Enter Levy name" />
-                                            </div>
-
-
-
-                                        </div>
-
-
-                                        <div className="flex gap-2 mt-4">
-                                            <div className="flex flex-col w-1/2">
-                                                <label htmlFor="" className="text-xs mb-1">Date of Birth</label>
-                                                <input type="date" name="" id="" className="border border-gray-200 p-2 focus:outline-none rounded-sm" placeholder="Enter Levy name" />
-                                            </div>
-
-
-                                            <div className="flex flex-col w-1/2">
-                                                <label htmlFor="" className="text-xs mb-1">Gender</label>
+                                                <label htmlFor="" className="text-xs mb-1">Category</label>
                                                 <select name="" className="border border-gray-200 p-2 focus:outline-none rounded-sm" id="">
                                                     <option value="">Choose</option>
                                                     <option value="">Male</option>
                                                     <option value="">Female</option>
                                                 </select>
-                                              
+
                                             </div>
+
+
+                                            <div className="flex flex-col w-1/2">
+                                                <label htmlFor="" className="text-xs mb-1">Service Fee</label>
+                                                <input type="date" name="" id="" className="border border-gray-200 p-2 focus:outline-none rounded-sm" placeholder="Enter service fee" />
+                                            </div>
+
+                                          
+
 
 
 
                                         </div>
 
 
+                                        <div className="mt-4">
+                                        <label htmlFor="" className="text-xs mb-1">Apartment Details</label>
 
-                                        <div className="flex gap-2 mt-4">
-                                            <div className="flex flex-col w-1/2">
-                                                <label htmlFor="" className="text-xs mb-1">Marital Status</label>
-                                                <select name="" className="border border-gray-200 p-2 focus:outline-none rounded-sm" id="">
-                                                    <option value="">Choose</option>
-                                                    <option value="">Male</option>
-                                                    <option value="">Female</option>
-                                                </select>
+                                                <Editor
+                                                       defaultContentState={contentState}
+        onContentStateChange={setContentState}
+        wrapperClassName="wrapper-class"
+        editorClassName="editor-class"
+        toolbarClassName="toolbar-class"
+
+                                                />
                                             </div>
-
-
-                                            <div className="flex flex-col w-1/2">
-                                                <label htmlFor="" className="text-xs mb-1">Apartment Type</label>
-                                                <select name="" className="border border-gray-200 p-2 focus:outline-none rounded-sm" id="">
-                                                    <option value="">Choose</option>
-                                                    <option value="">Male</option>
-                                                    <option value="">Female</option>
-                                                </select>
-                                              
-                                            </div>
-
-
-
-                                        </div>
-
-
-
-
 
 
 
@@ -303,7 +299,7 @@ function Residents() {
 
                                 <div className="mt-4 flex gap-2">
 
-                            <button className="button-bg py-2 px-3 text-white font-semibold  text-xs  rounded-sm"> Add Resident</button>
+                                    <button className="button-bg py-2 px-3 text-white font-semibold  text-xs  rounded-sm"> Add Levy</button>
 
                                     <button
                                         type="button"
@@ -320,38 +316,56 @@ function Residents() {
             </Transition>
 
 
+
             <div className="flex">
-            <LeftNavbar/>
+                <LeftNavbar />
+
 
 
                 <div className="w-10/12 flex flex-col  body-bg">
-                <TopNavbar user ='Residents'/>
+
+                    <TopNavbar user='Apartments' />
+
+
+
 
                     <div className="flex justify-between ml-12 w-11/12 items-center mt-8">
-                    <div
-                        className="flex items-center bg-white p-2 mt-8 w-3/12 rounded-2xl px-6 flex items-center"
-                    >
-                        <input
-                            type="text"
-                            name=""
-                            placeholder="search here..."
-                            id=""
-                            className="focus:outline-none bg-transparent w-11/12"
-                        />
+                        <div
+                            className="bg-white p-2  w-3/12 rounded-2xl px-6 flex items-center"
+                        >
+                            <input
+                                type="text"
+                                name=""
+                                placeholder="search here..."
+                                id=""
+                                className="focus:outline-none bg-transparent w-11/12"
+                            />
 
-<RiSearch2Line/>
+                            <RiSearch2Line />
 
-                    </div>
+                        </div>
 
 
                         <div className="flex gap-4">
-                            <button className="flex items-center gap-2 bg-customm py-2 px-3 color-theme font-semibold text-xs  rounded-sm">  
-                            <RiCalendarLine />
-                            Date Filter</button>
+
+
                             <button className="flex items-center gap-2 bg-customm py-2 px-3 color-theme font-semibold text-xs  rounded-sm">
-                            <RiCalendarLine />
-                             Generate Report</button>
-                            <button onClick={e => openModal(e)} className="button-bg py-2 px-3 text-white font-semibold  text-xs  rounded-sm"> Add New Resident</button>
+                                <RiCalendarLine />
+                                Generate Report</button>
+
+                            <button
+                                onClick={e => openModal(e)}
+
+                                className="button-bg py-2 px-3 text-white font-medium  text-xs  rounded-sm"> Add Apartment</button>
+
+
+
+
+
+
+
+
+
                         </div>
                     </div>
 
@@ -379,4 +393,4 @@ function Residents() {
     )
 }
 
-export default Residents
+export default Apartment
